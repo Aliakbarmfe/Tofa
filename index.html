@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تافو | Tafo</title>
+  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+  <style>
+    :root {
+      --bg-color: #0b0f17;
+      --card-bg: #111622;
+      --cyan: #00f2fe;
+      --text: #ffffff;
+      --text-dim: #94a3b8;
+      --border: #1e293b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Vazirmatn', sans-serif; }
+    body { background-color: var(--bg-color); color: var(--text); padding: 20px; display: flex; flex-direction: column; align-items: center; }
+
+    .glow-line {
+      width: 100%; max-width: 600px; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+      box-shadow: 0 0 10px var(--cyan); margin: 20px 0;
+    }
+
+    .card {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 16px; padding: 20px; width: 100%; max-width: 600px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5); margin-bottom: 20px;
+    }
+
+    .stats-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.95rem; }
+    .cyan-text { color: var(--cyan); font-weight: bold; text-shadow: 0 0 8px rgba(0,242,254,0.4); }
+
+    .title { font-size: 2rem; font-weight: 900; text-align: center; margin-top: 10px; }
+    .subtitle { color: var(--text-dim); text-align: center; margin-bottom: 20px; font-size: 0.9rem; }
+
+    .highlight { color: var(--cyan); text-shadow: 0 0 5px var(--cyan); font-weight: bold; }
+    
+    .section-title { text-align: center; font-size: 1.4rem; margin: 20px 0 5px; }
+    .section-sub { text-align: center; color: var(--text-dim); font-size: 0.85rem; margin-bottom: 20px; }
+
+    .feature-item { margin-bottom: 15px; }
+    .feature-header { font-weight: bold; font-size: 1.05rem; text-decoration: underline; text-decoration-color: var(--cyan); display: flex; align-items: center; gap: 8px; }
+    .feature-desc { color: var(--text-dim); font-size: 0.88rem; margin-top: 5px; line-height: 1.6; }
+
+    .pill-box {
+      background: #1a102f; border: 1px solid #3b2d54; color: #c084fc;
+      text-align: center; padding: 8px; border-radius: 20px; font-size: 0.85rem; margin: 15px 0;
+    }
+
+    .contact-item { margin-bottom: 12px; }
+    .contact-label { color: var(--text-dim); font-size: 0.85rem; display: block; }
+    .contact-value { color: var(--text); font-weight: bold; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <div class="glow-line"></div>
+
+  <!-- کادر آمار -->
+  <div class="card">
+    <div class="stats-row">
+      <span>📉 تعداد بازدید کل سایت:</span>
+      <span class="cyan-text" id="totalViews">...</span>
+    </div>
+    <div class="stats-row">
+      <span>👁️ تعداد بازدید امروز:</span>
+      <span class="cyan-text" id="todayViews">...</span>
+    </div>
+  </div>
+
+  <div class="title cyan-text">تافو | Tafo</div>
+  <div class="subtitle" id="subHeader">معامله امن رو با تافو تجربه کن</div>
+
+  <!-- کادر درباره -->
+  <div class="card">
+    <p id="aboutText" style="line-height: 1.8; font-size: 0.95rem;">
+      من تمایل دارم با شما همکاری کنم. با بیش از ۴ سال سابقه فعالیت تخصصی، خدمات <span class="highlight">سرعت</span>، <span class="highlight">امنیت</span> و <span class="highlight">واسطه گری بدون دریافت حق</span> را ارائه می‌دهم.
+    </p>
+  </div>
+
+  <div class="section-title">چرا تافو؟</div>
+  <div class="section-sub" id="whyText">انتخاب واسطه گر درست معامله شما را تضمین میکند</div>
+
+  <!-- کادر ویژگی‌ها -->
+  <div class="card">
+    <div class="feature-item">
+      <div class="feature-header">🔒 تضمین امنیت</div>
+      <div class="feature-desc" id="secDesc">حفظ امنیت تمام سرمایه و دارایی‌های شما در طول معامله با بررسی دقیق هویت طرفین.</div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-header">⚡ سرعت</div>
+      <div class="feature-desc" id="speedDesc">انجام معاملات در سریع‌ترین زمان ممکن بدون اتلاف وقت و معطلی.</div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-header">❤️ بدون سود/حق واسطه گری</div>
+      <div class="feature-desc" id="freeDesc">ارائه کلیه خدمات واسطه‌گری به صورت کاملاً رایگان و بدون دریافت هیچ کارمزدی.</div>
+    </div>
+  </div>
+
+  <div class="glow-line"></div>
+
+  <!-- کادر ارتباطی -->
+  <div class="card">
+    <div style="text-align: center; font-size: 1.2rem; font-weight: bold;" class="cyan-text" id="phoneNum">+989024941062</div>
+    <div class="pill-box" id="noticeText">تنها راه ارتباط از طریق روبیکا</div>
+
+    <div class="contact-item">
+      <span class="contact-label">آیدی روبیکا:</span>
+      <span class="contact-value" id="rubikaId">@IM_SaiLeX</span>
+    </div>
+    <div class="contact-item">
+      <span class="contact-label">شاپ روبیکا:</span>
+      <span class="contact-value" id="shopId">@SHoP_SaiLeX</span>
+    </div>
+  </div>
+
+  <script>
+    // دریافت آمار بازدید
+    fetch('/api/stats')
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('totalViews').innerText = data.totalViews || 0;
+        document.getElementById('todayViews').innerText = data.todayViews || 0;
+      });
+
+    // دریافت متن‌های داینامیک در صورت تغییر از ادمین
+    fetch('/api/content')
+      .then(res => res.json())
+      .then(data => {
+        if(data) {
+          if(data.subHeader) document.getElementById('subHeader').innerText = data.subHeader;
+          if(data.aboutText) document.getElementById('aboutText').innerHTML = data.aboutText;
+          if(data.whyText) document.getElementById('whyText').innerText = data.whyText;
+          if(data.secDesc) document.getElementById('secDesc').innerText = data.secDesc;
+          if(data.speedDesc) document.getElementById('speedDesc').innerText = data.speedDesc;
+          if(data.freeDesc) document.getElementById('freeDesc').innerText = data.freeDesc;
+          if(data.phoneNum) document.getElementById('phoneNum').innerText = data.phoneNum;
+          if(data.noticeText) document.getElementById('noticeText').innerText = data.noticeText;
+          if(data.rubikaId) document.getElementById('rubikaId').innerText = data.rubikaId;
+          if(data.shopId) document.getElementById('shopId').innerText = data.shopId;
+        }
+      });
+  </script>
+</body>
+</html>
