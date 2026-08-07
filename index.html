@@ -7,52 +7,164 @@
   <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
   <style>
     :root {
-      --bg-color: #0b0f17;
-      --card-bg: #111622;
-      --cyan: #00f2fe;
+      --bg-color: #060608;
+      --card-bg: #0b0e14;
+      --cyan: #00f0ff;
+      --cyan-glow: rgba(0, 240, 255, 0.4);
+      --purple-pill: #211132;
+      --purple-border: #4a2574;
+      --purple-glow: rgba(157, 78, 221, 0.3);
       --text: #ffffff;
-      --text-dim: #94a3b8;
-      --border: #1e293b;
+      --text-dim: #c8d0e0;
+      --border: rgba(0, 240, 255, 0.18);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Vazirmatn', sans-serif; }
-    body { background-color: var(--bg-color); color: var(--text); padding: 20px; display: flex; flex-direction: column; align-items: center; }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body { 
+      background-color: var(--bg-color); 
+      color: var(--text); 
+      padding: 20px; 
+      display: flex; 
+      flex-direction: column; 
+      align-items: center;
+      animation: fadeInPage 0.8s ease-out forwards;
+      overflow-x: hidden;
+    }
+
+    /* انیمیشن فید ورود صفحه */
+    @keyframes fadeInPage {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* انیمیشن فید هنگام اسکرول */
+    .fade-scroll {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .fade-scroll.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
     .glow-line {
       width: 100%; max-width: 600px; height: 2px;
-      background: linear-gradient(90deg, transparent, var(--cyan), transparent);
-      box-shadow: 0 0 10px var(--cyan); margin: 20px 0;
+      background: linear-gradient(90deg, transparent, #ffffff, #c77dff, transparent);
+      box-shadow: 0 0 12px #9d4edd, 0 0 5px #ffffff; 
+      margin: 25px 0;
+      border-radius: 2px;
     }
 
     .card {
-      background: var(--card-bg); border: 1px solid var(--border);
-      border-radius: 16px; padding: 20px; width: 100%; max-width: 600px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.5); margin-bottom: 20px;
+      background: var(--card-bg); 
+      border: 1px solid var(--border);
+      border-radius: 20px; 
+      padding: 24px 20px; 
+      width: 100%; 
+      max-width: 600px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8), inset 0 0 12px rgba(0, 240, 255, 0.02); 
+      margin-bottom: 24px;
     }
 
-    .stats-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.95rem; }
-    .cyan-text { color: var(--cyan); font-weight: bold; text-shadow: 0 0 8px rgba(0,242,254,0.4); }
+    .stats-row { 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center;
+      margin-bottom: 14px; 
+      font-size: 0.95rem; 
+      color: var(--text-dim);
+    }
+    .stats-row:last-child { margin-bottom: 0; }
 
-    .title { font-size: 2rem; font-weight: 900; text-align: center; margin-top: 10px; }
-    .subtitle { color: var(--text-dim); text-align: center; margin-bottom: 20px; font-size: 0.9rem; }
+    .cyan-text { 
+      color: var(--cyan); 
+      font-weight: 700; 
+      text-shadow: 0 0 10px var(--cyan-glow), 0 0 20px var(--cyan-glow); 
+    }
 
-    .highlight { color: var(--cyan); text-shadow: 0 0 5px var(--cyan); font-weight: bold; }
+    .title { 
+      font-size: 2.2rem; 
+      font-weight: 900; 
+      text-align: center; 
+      margin-top: 15px; 
+      letter-spacing: -0.5px;
+    }
+    .subtitle { 
+      color: var(--text-dim); 
+      text-align: center; 
+      margin-top: 8px;
+      margin-bottom: 24px; 
+      font-size: 0.95rem; 
+    }
+
+    .highlight { 
+      color: var(--cyan); 
+      text-shadow: 0 0 8px var(--cyan-glow); 
+      font-weight: bold; 
+    }
     
-    .section-title { text-align: center; font-size: 1.4rem; margin: 20px 0 5px; }
-    .section-sub { text-align: center; color: var(--text-dim); font-size: 0.85rem; margin-bottom: 20px; }
+    .section-title { 
+      text-align: center; 
+      font-size: 1.6rem; 
+      font-weight: 800;
+      color: #ffffff;
+      margin: 15px 0 6px; 
+    }
+    .section-sub { 
+      text-align: center; 
+      color: var(--text-dim); 
+      font-size: 0.88rem; 
+      margin-bottom: 22px; 
+      padding: 0 10px;
+    }
 
-    .feature-item { margin-bottom: 15px; }
-    .feature-header { font-weight: bold; font-size: 1.05rem; text-decoration: underline; text-decoration-color: var(--cyan); display: flex; align-items: center; gap: 8px; }
-    .feature-desc { color: var(--text-dim); font-size: 0.88rem; margin-top: 5px; line-height: 1.6; }
+    .feature-item { margin-bottom: 22px; }
+    .feature-item:last-child { margin-bottom: 0; }
+    
+    .feature-header { 
+      font-weight: 700; 
+      font-size: 1.05rem; 
+      color: #ffffff;
+      display: inline-flex; 
+      align-items: center; 
+      gap: 8px; 
+      background: rgba(0, 240, 255, 0.05);
+      padding: 4px 12px;
+      border-radius: 8px;
+      border-bottom: 2px solid var(--cyan);
+      box-shadow: 0 4px 10px rgba(0,240,255,0.1);
+    }
+    .feature-desc { 
+      color: var(--text-dim); 
+      font-size: 0.9rem; 
+      margin-top: 10px; 
+      line-height: 1.7; 
+      padding-right: 4px;
+    }
 
     .pill-box {
-      background: #1a102f; border: 1px solid #3b2d54; color: #c084fc;
-      text-align: center; padding: 8px; border-radius: 20px; font-size: 0.85rem; margin: 15px 0;
+      background: var(--purple-pill); 
+      border: 1px solid var(--purple-border); 
+      color: #e0aaff;
+      text-align: center; 
+      padding: 12px 16px; 
+      border-radius: 30px; 
+      font-size: 0.9rem; 
+      font-weight: 500;
+      margin: 18px 0 22px; 
+      box-shadow: 0 0 15px var(--purple-glow);
     }
 
-    .contact-item { margin-bottom: 12px; }
-    .contact-label { color: var(--text-dim); font-size: 0.85rem; display: block; }
-    .contact-value { color: var(--text); font-weight: bold; text-decoration: none; }
+    .contact-item { margin-bottom: 16px; }
+    .contact-item:last-child { margin-bottom: 0; }
+    .contact-label { color: var(--text-dim); font-size: 0.9rem; display: block; margin-bottom: 4px; }
+    .contact-value { color: #ffffff; font-weight: bold; font-size: 1.05rem; text-decoration: none; }
   </style>
 </head>
 <body>
@@ -60,7 +172,7 @@
   <div class="glow-line"></div>
 
   <!-- کادر آمار -->
-  <div class="card">
+  <div class="card fade-scroll">
     <div class="stats-row">
       <span>📉 تعداد بازدید کل سایت:</span>
       <span class="cyan-text" id="totalViews">...</span>
@@ -75,8 +187,8 @@
   <div class="subtitle" id="subHeader">معامله امن رو با تافو تجربه کن</div>
 
   <!-- کادر درباره -->
-  <div class="card">
-    <p id="aboutText" style="line-height: 1.8; font-size: 0.95rem;">
+  <div class="card fade-scroll">
+    <p id="aboutText" style="line-height: 1.8; font-size: 0.95rem; text-align: justify; color: var(--text-dim);">
       من تمایل دارم با شما همکاری کنم. با بیش از ۴ سال سابقه فعالیت تخصصی، خدمات <span class="highlight">سرعت</span>، <span class="highlight">امنیت</span> و <span class="highlight">واسطه گری بدون دریافت حق</span> را ارائه می‌دهم.
     </p>
   </div>
@@ -85,7 +197,7 @@
   <div class="section-sub" id="whyText">انتخاب واسطه گر درست معامله شما را تضمین میکند</div>
 
   <!-- کادر ویژگی‌ها -->
-  <div class="card">
+  <div class="card fade-scroll">
     <div class="feature-item">
       <div class="feature-header">🔒 تضمین امنیت</div>
       <div class="feature-desc" id="secDesc">حفظ امنیت تمام سرمایه و دارایی‌های شما در طول معامله با بررسی دقیق هویت طرفین.</div>
@@ -103,8 +215,8 @@
   <div class="glow-line"></div>
 
   <!-- کادر ارتباطی -->
-  <div class="card">
-    <div style="text-align: center; font-size: 1.2rem; font-weight: bold;" class="cyan-text" id="phoneNum">+989024941062</div>
+  <div class="card fade-scroll">
+    <div style="text-align: center; font-size: 1.4rem; font-weight: bold;" class="cyan-text" id="phoneNum">+989024941062</div>
     <div class="pill-box" id="noticeText">تنها راه ارتباط از طریق روبیکا</div>
 
     <div class="contact-item">
@@ -143,6 +255,17 @@
           if(data.shopId) document.getElementById('shopId').innerText = data.shopId;
         }
       });
+
+    // مدیریت انیمیشن اسکرول (Scroll Fade Effect)
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-scroll').forEach((el) => observer.observe(el));
   </script>
 </body>
 </html>
