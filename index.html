@@ -175,10 +175,6 @@
       direction: ltr; 
       text-align: left; 
     }
-
-    .icon-gold {
-      color: #FFD700;
-    }
   </style>
 </head>
 <body>
@@ -191,9 +187,15 @@
       <span>📉 تعداد بازدید کل سایت:</span>
       <span class="cyan-text" id="totalViews">...</span>
     </div>
-    <div class="stats-row">
-      <span>👁️ تعداد بازدید امروز:</span>
-      <span class="cyan-text" id="todayViews">...</span>
+    <div class="stats-row" style="flex-direction: column; align-items: flex-start; gap: 6px;">
+      <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+        <span>👁️ تعداد بازدید امروز:</span>
+        <span class="cyan-text" id="todayViews">...</span>
+      </div>
+      <div style="font-size: 0.78rem; opacity: 0.85; display: flex; gap: 5px; align-items: center; margin-top: 2px;">
+        <span>(هر ۲۴ ساعت یکبار بروزرسانی می‌شود - بروزرسانی بعدی:</span>
+        <span class="cyan-text" id="resetTimer" style="font-size: 0.82rem; direction: ltr; display: inline-block;">--:--</span>)
+      </div>
     </div>
   </div>
 
@@ -213,15 +215,15 @@
   <!-- کادر ویژگی‌ها -->
   <div class="card fade-scroll">
     <div class="feature-item">
-      <div class="feature-header"><span class="icon-gold">🔒</span> تضمین امنیت</div>
+      <div class="feature-header">🔒 تضمین امنیت</div>
       <div class="feature-desc" id="secDesc">حفظ امنیت تمام سرمایه و دارایی‌های شما در طول معامله با بررسی دقیق هویت طرفین.</div>
     </div>
     <div class="feature-item">
-      <div class="feature-header"><span class="icon-gold">⚡</span> سرعت</div>
+      <div class="feature-header">⚡ سرعت</div>
       <div class="feature-desc" id="speedDesc">انجام معاملات در سریع‌ترین زمان ممکن بدون اتلاف وقت و معطلی.</div>
     </div>
     <div class="feature-item">
-      <div class="feature-header"><span class="icon-gold">❤️</span> بدون سود/حق واسطه گری</div>
+      <div class="feature-header">❤️ بدون سود/حق واسطه گری</div>
       <div class="feature-desc" id="freeDesc">ارائه کلیه خدمات واسطه‌گری به صورت کاملاً رایگان و بدون دریافت هیچ کارمزدی.</div>
     </div>
   </div>
@@ -251,6 +253,25 @@
         document.getElementById('totalViews').innerText = data.totalViews || 0;
         document.getElementById('todayViews').innerText = data.todayViews || 0;
       });
+
+    // تایمر معکوس ۲۴ ساعته (تا پایان روز جاری)
+    function updateCountdown() {
+      const now = new Date();
+      const nextReset = new Date();
+      nextReset.setHours(24, 0, 0, 0); // تنظیم زمان روی ساعت ۲۴:۰۰ امشب
+
+      const diff = nextReset - now;
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+
+      const formattedHours = String(hours).padStart(2, '0');
+      const formattedMinutes = String(minutes).padStart(2, '0');
+
+      document.getElementById('resetTimer').innerText = `${formattedHours}:${formattedMinutes}`;
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
 
     // دریافت متن‌های داینامیک در صورت تغییر از ادمین
     fetch('/api/content')
