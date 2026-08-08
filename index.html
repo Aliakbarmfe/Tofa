@@ -187,40 +187,38 @@
     .chat-float-btn {
       position: fixed;
       bottom: 25px;
-      left: 25px;
-      width: 140px;
-      height: 50px;
-      border-radius: 30px;
+      right: 25px;
+      width: 65px;
+      height: 65px;
+      border-radius: 50%;
       background: var(--card-bg);
       border: 2px solid var(--cyan);
       color: var(--cyan);
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 8px;
       cursor: pointer;
       box-shadow: 0 0 20px var(--cyan-glow), 0 8px 25px rgba(0,0,0,0.8);
       z-index: 9999;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      padding: 0 12px;
     }
 
     .chat-float-btn:hover {
-      transform: scale(1.05);
+      transform: scale(1.08);
       box-shadow: 0 0 30px var(--cyan-glow);
     }
 
     .chat-float-btn svg {
-      width: 22px;
-      height: 22px;
+      width: 24px;
+      height: 24px;
       fill: var(--cyan);
-      flex-shrink: 0;
     }
 
     .chat-float-btn span {
-      font-size: 0.85rem;
+      font-size: 0.62rem;
       font-weight: bold;
+      margin-top: 2px;
       color: #ffffff;
       white-space: nowrap;
     }
@@ -640,4 +638,7 @@
         }
       }, 1000);
     }
-  <
+  </script>
+</body>
+  </html>
+
