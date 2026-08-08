@@ -182,6 +182,182 @@
       direction: ltr; 
       text-align: left; 
     }
+
+    /* --- استایل‌های بخش چت‌پات و پشتیبانی آنلاین --- */
+    .support-btn {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: linear-gradient(135deg, var(--cyan), #9d4edd);
+      color: #000;
+      font-weight: bold;
+      padding: 14px 24px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+      z-index: 1000;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .support-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(157, 78, 221, 0.6);
+    }
+
+    .chat-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(5px);
+      z-index: 1001;
+      justify-content: center;
+      align-items: center;
+      padding: 15px;
+    }
+
+    .chat-modal.active {
+      display: flex;
+    }
+
+    .chat-box {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      width: 100%;
+      max-width: 650px;
+      height: 80vh;
+      max-height: 700px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9), inset 0 0 15px rgba(0, 240, 255, 0.05);
+      overflow: hidden;
+      animation: popupAnim 0.3s ease-out;
+    }
+
+    @keyframes popupAnim {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .chat-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0, 240, 255, 0.02);
+    }
+
+    .chat-header h3 {
+      font-size: 1.2rem;
+      color: var(--cyan);
+      text-shadow: 0 0 8px var(--cyan-glow);
+    }
+
+    .chat-close {
+      background: transparent;
+      border: none;
+      color: var(--text-dim);
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .chat-close:hover {
+      color: #ff4d4d;
+    }
+
+    .chat-body {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .chat-msg {
+      max-width: 80%;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
+    .chat-msg.user {
+      align-self: flex-start;
+      background: var(--purple-pill);
+      border: 1px solid var(--purple-border);
+      color: #ffffff;
+      border-bottom-right-radius: 2px;
+    }
+
+    .chat-msg.bot {
+      align-self: flex-end;
+      background: rgba(0, 240, 255, 0.08);
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      border-bottom-left-radius: 2px;
+    }
+
+    .chat-footer {
+      padding: 16px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 10px;
+      position: relative;
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    .chat-input {
+      flex: 1;
+      background: #060608;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 16px;
+      color: #fff;
+      outline: none;
+      font-size: 0.9rem;
+    }
+
+    .chat-input:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .chat-send-btn {
+      background: var(--cyan);
+      color: #000;
+      border: none;
+      border-radius: 12px;
+      padding: 0 20px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .chat-send-btn:disabled {
+      background: #444;
+      color: #888;
+      cursor: not-allowed;
+    }
+
+    .timer-overlay {
+      position: absolute;
+      top: -25px;
+      right: 20px;
+      font-size: 0.8rem;
+      color: var(--cyan);
+    }
   </style>
 </head>
 <body>
@@ -256,6 +432,26 @@
     </div>
   </div>
 
+  <!-- دکمه و پاپ آپ پشتیبانی آنلاین -->
+  <button class="support-btn" onclick="toggleChat(true)">💬 پشتیبانی آنلاین</button>
+
+  <div class="chat-modal" id="chatModal">
+    <div class="chat-box">
+      <div class="chat-header">
+        <h3>دستیار هوش مصنوعی</h3>
+        <button class="chat-close" onclick="toggleChat(false)">✕</button>
+      </div>
+      <div class="chat-body" id="chatBody">
+        <div class="chat-msg bot">سلام! من دستیار هوش مصنوعی واسطه فلکس هستم. چگونه می‌توانم شما را راهنمایی کنم؟</div>
+      </div>
+      <div class="chat-footer">
+        <span class="timer-overlay" id="timerOverlay"></span>
+        <input type="text" class="chat-input" id="chatInput" placeholder="پیام خود را بنویسید..." onkeydown="preventEnterSend(event)">
+        <button class="chat-send-btn" id="sendBtn" onclick="sendMessage()">ارسال</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     // دریافت آمار بازدید
     fetch('/api/stats')
@@ -312,6 +508,80 @@
     }, { threshold: 0.1 });
 
     document.querySelectorAll('.fade-scroll').forEach((el) => observer.observe(el));
+
+    /* --- منطق چت‌پات آنلاین --- */
+    function toggleChat(show) {
+      document.getElementById('chatModal').classList.toggle('active', show);
+    }
+
+    // جلوگیری از ارسال پیام با دکمه Enter کیبورد
+    function preventEnterSend(event) {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+      }
+    }
+
+    async function sendMessage() {
+      const input = document.getElementById('chatInput');
+      const btn = document.getElementById('sendBtn');
+      const body = document.getElementById('chatBody');
+      const timerOverlay = document.getElementById('timerOverlay');
+      const text = input.value.trim();
+
+      if (!text) return;
+
+      // نمایش پیام کاربر
+      const userDiv = document.createElement('div');
+      userDiv.className = 'chat-msg user';
+      userDiv.innerText = text;
+      body.appendChild(userDiv);
+
+      input.value = '';
+      body.scrollTop = body.scrollHeight;
+
+      // غیرفعال‌سازی ورودی و دکمه ارسال
+      input.disabled = true;
+      btn.disabled = true;
+
+      // ارسال به بک‌اند API Vercel
+      try {
+        const res = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: text })
+        });
+        const data = await res.json();
+        
+        const botDiv = document.createElement('div');
+        botDiv.className = 'chat-msg bot';
+        botDiv.innerText = data.reply || "خطایی رخ داده است. لطفا دوباره تلاش کنید.";
+        body.appendChild(botDiv);
+      } catch (err) {
+        const botDiv = document.createElement('div');
+        botDiv.className = 'chat-msg bot';
+        botDiv.innerText = "خطا در برقراری ارتباط با سرور.";
+        body.appendChild(botDiv);
+      }
+
+      body.scrollTop = body.scrollHeight;
+
+      // شروع شمارش معکوس ۱۰ ثانیه
+      let countdown = 10;
+      timerOverlay.innerText = `لطفاً ${countdown} ثانیه صبر کنید...`;
+
+      const interval = setInterval(() => {
+        countdown--;
+        if (countdown > 0) {
+          timerOverlay.innerText = `لطفاً ${countdown} ثانیه صبر کنید...`;
+        } else {
+          clearInterval(interval);
+          timerOverlay.innerText = '';
+          input.disabled = false;
+          btn.disabled = false;
+          input.focus();
+        }
+      }, 1000);
+    }
   </script>
 </body>
 </html>
